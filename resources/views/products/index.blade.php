@@ -1,12 +1,16 @@
 @extends('layouts.app')
 
 @section('title')
-   | Products
+    | Products
 @endsection
 
 @section('content')
 
     <h1>List of Products</h1>
+
+    <a href="{{ route('products.create') }}" class="btn btn-success">
+        Creat
+    </a>
 
     @empty($products)
         <div class="alert alert-warning">
@@ -23,6 +27,7 @@
                         <th>Price</th>
                         <th>Stock</th>
                         <th>Status</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,6 +39,20 @@
                             <td>{{ $product->price }}</td>
                             <td>{{ $product->stock }}</td>
                             <td>{{ $product->status }}</td>
+                            <td>
+                                <a href="{{route('products.show', ['product' => $product->id])}}" class="btn btn-link">Show</a>
+                                <a href="{{route('products.edit', ['product' => $product->id])}}" class="btn btn-link">Edit</a>
+                                <form action="{{route('products.destroy', ['product' => $product->id])}}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" 
+                                        class="btn btn-sm btn-link"
+                                        onclick="confirm('Confirm delete product {{$product->id}}')"
+                                        >
+                                        Delete
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
 
                     @endforeach
