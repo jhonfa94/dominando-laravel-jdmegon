@@ -22,12 +22,27 @@ class ProductController extends Controller
 
     public function create()
     {
-        //
+        return view('products.create');
     }
 
     public function store()
     {
-        //
+        // dd(request());
+        # PRIMERA FORMA DE INSERT
+        /* $product = Product::create([
+            'title' => request()->title,
+            'description' => request()->description,
+            'price' => request()->price,
+            'stock' => request()->stock,
+            'status' => request()->status
+        ]);    */     
+        // return $product;
+
+        $product = Product::create(request()->all());
+        return $product;
+
+
+
     }
 
     public function show($product)
