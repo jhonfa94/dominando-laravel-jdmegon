@@ -20,13 +20,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\MainController::class, 'index'])->name('main');
 
-Route::get('products', [App\Http\Controllers\ProductController::class, 'index'])->name('products.index');
+# RUTA RECURSIVA => utilizar except y en array indicar que metodo no mostrar o si es uno en especifico only
+Route::resource('products', App\Http\Controllers\ProductController::class); # 
+
+# RUTAS NORMALES
+/* Route::get('products', [App\Http\Controllers\ProductController::class, 'index'])->name('products.index');
 Route::get('products/create',  [App\Http\Controllers\ProductController::class, 'create'])->name('products.create');
 Route::post('products', [App\Http\Controllers\ProductController::class, 'store'])->name('products.store');
+// Route::get('products/{product:title}', [App\Http\Controllers\ProductController::class, 'show'])->name('products.show');
 Route::get('products/{product}', [App\Http\Controllers\ProductController::class, 'show'])->name('products.show');
 Route::get('products/{product}/edit', [App\Http\Controllers\ProductController::class, 'edit'])->name('products.edit');
 Route::match(['put', 'patch'], 'products/{product}',  [App\Http\Controllers\ProductController::class, 'update'])->name('products.update');
-Route::delete('products/{product}', [App\Http\Controllers\ProductController::class, 'destroy'])->name('products.destroy');
+Route::delete('products/{product}', [App\Http\Controllers\ProductController::class, 'destroy'])->name('products.destroy'); */
 
 
 

@@ -41,6 +41,7 @@
                             <td>{{ $product->status }}</td>
                             <td >
                                 <a href="{{route('products.show', ['product' => $product->id])}}" class="btn btn-link">Show</a>
+                                {{-- <a href="{{route('products.show', ['product' => $product->title])}}" class="btn btn-link">Show</a> --}}
                                 <a href="{{route('products.edit', ['product' => $product->id])}}" class="btn btn-link">Edit</a>
                                 <form action="{{route('products.destroy', ['product' => $product->id])}}" method="post" class="d-inline">
                                     @csrf
