@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
+    /* ===================== 
+      APLICANDO MIDDLEWARE PARA RESTRINGIR EL ACCESO 
+    ========================= */ 
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index','show']);
+    }
+
     public function index()
     {
         // return "This is list product from method index";
