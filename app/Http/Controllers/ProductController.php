@@ -27,6 +27,28 @@ class ProductController extends Controller
 
     public function store()
     {
+        $rules = [
+            'title' => 'required|max:255',
+            'description' => 'required|max:1000',
+            'price' => 'required|min:1',
+            'stock' => 'required|min:0',
+            'status' => ['required', 'in:available,unavailable']
+        ];
+
+        request()->validate($rules);
+
+        if (request()->status == 'available' && request()->stock == 0) {
+            // session()->put('error', 'If available must have stock'); # Crea la sesión 
+            // session()->flash('error', 'If available must have stock');
+            return redirect()
+                ->back()
+                ->withInput(request()->all())
+                ->withErrors('If available must have stock');
+        }
+
+        // session()->forget('error'); # Elimina la sessión de error creada
+
+
         // dd(request());
         # PRIMERA FORMA DE INSERT
         /* $product = Product::create([
@@ -39,7 +61,15 @@ class ProductController extends Controller
         // return $product;
 
         $product = Product::create(request()->all());
-        return $product;
+        // return $product;
+
+        # Mensaje de sessión para visualizar en la vista de blade
+        // session()->flash('success', "The new product with id {$product->id} was created");
+
+        // REDIRECCIONES DESPUES DE GUARDAR
+        // return redirect()->back(); # Nos regresa a la ubicación anterior
+        // return redirect()->action([ProductController::class, 'index']); # Ejecuta la acción de un controlador
+        return redirect()->route('products.index')->with('success',"The new product with id {$product->id} was created"); # Nos redirecciona a  la ruta que le especifiquemos
     }
 
     public function show($product)
@@ -67,15 +97,27 @@ class ProductController extends Controller
 
     public function update($product)
     {
+        $rules = [
+            'title' => 'required|max:255',
+            'description' => 'required|max:1000',
+            'price' => 'required|min:1',
+            'stock' => 'required|min:0',
+            'status' => ['required', 'in:available,unavailable']
+        ];
+
+        request()->validate($rules);
+
         $product = Product::findOrFail($product);
         $product->update(request()->all());
-        return $product;
+        // return $product;
+        return redirect()->route('products.index')->withSuccess("The product with id {$product->id} was edited");
     }
     public function destroy($product)
     {
         //Product::findOrFail($product)
         $product = Product::findOrFail($product);
         $product->delete();
-        return $product;
+        // return $product;
+        return redirect()->route('products.index')->withSuccess("The product with id {$product->id} was deleted");
     }
 }
