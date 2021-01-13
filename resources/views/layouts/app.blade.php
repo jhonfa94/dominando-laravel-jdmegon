@@ -13,15 +13,17 @@
     <title>Learn Laravel @yield('title','')</title>
 
     <!-- Scripts -->
-    {{-- <script src="{{ asset('js/app.js') }}" defer></script> --}}
-    <script src="{{ mix('js/app.js') }}" defer></script> 
+    {{-- <script src="{{ asset('js/app.js') }}" defer></script>
+    --}}
+    <script src="{{ mix('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+    {{--
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 </head>
 
@@ -42,7 +44,9 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('products.index') }}">Products</a>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -69,7 +73,7 @@
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                            document.getElementById('logout-form').submit();">
+                                                                    document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
