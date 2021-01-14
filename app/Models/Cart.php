@@ -18,6 +18,7 @@ class Cart extends Model
     public function products()
     {
         //Al tener esta realación nos trae el dato que se tiene en la tabla internmedia
-        return $this->belongsToMany(Product::class)->withPivot('quantity');
+        // return $this->belongsToMany(Product::class)->withPivot('quantity');
+        return $this->morphToMany(Product::class,'productable')->withPivot('quantity');
     }
 }

@@ -118,40 +118,67 @@ Similar a las inner join en SQL
 
 Agregan automaticamente para el intermedio de una tabla
 
-# ASIGNANDO UNA IMAGEN A UN USUARIO 
+# ASIGNANDO UNA IMAGEN A UN USUARIO
 
-- Creo u obtengo una instancia del usuario: $user = App\Models\User::find(1);
+-   Creo u obtengo una instancia del usuario: $user = App\Models\User::find(1);
 
-- Asigno una imagen del usuario
-$user->image()->save(App\Models\Image::factory()->make());
+-   Asigno una imagen del usuario
+    $user->image()->save(App\Models\Image::factory()->make());
 
-- Guardo en variable la imagen del usuario creada
-$image = $user->image;
+-   Guardo en variable la imagen del usuario creada
+    $image = $user->image;
 
-- Se veficia las imagenes que tiene asiginada
-$image->imageable;
+-   Se veficia las imagenes que tiene asiginada
+    $image->imageable;
 
 # RELACIONES DE UNO A MUCHOS
+
 Un producto puede tener multiples imagenes
 
-- Obteniendo un producto
-$product = App\Models\Product::find(2);
+-   Obteniendo un producto
+    $product = App\Models\Product::find(2);
 
-- Asignando una imagen al producto
-$product->images()->save(App\Models\Image::factory()->make());
+-   Asignando una imagen al producto
+    $product->images()->save(App\Models\Image::factory()->make());
 
-- Busco la imagen insertada 
-$image = App\Models\Image::find(2);
+-   Busco la imagen insertada
+    $image = App\Models\Image::find(2);
 
-- Traemos el imageable
-$image->imageable;
+-   Traemos el imageable
+    $image->imageable;
 
-- Obteniendo las imagenes del producto
-$product->images;
+-   Obteniendo las imagenes del producto
+    $product->images;
 
-- Refrescando el producto para acceder a la colección
-$product = $product->fresh();
-
+-   Refrescando el producto para acceder a la colección
+    $product = $product->fresh();
 
 # RELACIONES POLIMORFICAS MUCHOS A MUCHOS
 
+-   Seleccionando producto
+    $product = App\Models\Product::find(3);
+
+-   Creando un cart
+    $cart = App\Models\Cart::factory()->create();
+
+-   Creando un usuario
+    $user = App\Models\User::factory()->create();
+
+-   Creando la orden
+    $order = App\Models\Order::factory()->create(['customer_id' => $user->id]);
+
+-   Asignando una orden al producto
+    $product->orders()->attach([1 => ['quantity' => 5]]);
+
+-   Verificando las ordenes del producto
+    $product->orders;
+
+-   Creando el cart
+    $cart = App\Models\Order::factory()->create(['customer_id' => $user->id]);
+
+-   Asignando cantidad
+    $cart->products()->attach([$product->id => ['quantity' => 7]]);
+    $cart->products()->attach([1 => ['quantity' => 5]]);
+
+-   Verificando la cantidad insertada
+    $cart->products;
