@@ -111,12 +111,47 @@ Similar a las inner join en SQL
 
 -   Refrescando la información del usuario: $user->fresh();
 
-- Ver los pagos del usuario de las ordenes
-$user->payments;
-
+-   Ver los pagos del usuario de las ordenes
+    $user->payments;
 
 # RELACIONES POLIMORFICAS
-Agregan 
+
+Agregan automaticamente para el intermedio de una tabla
+
+# ASIGNANDO UNA IMAGEN A UN USUARIO 
+
+- Creo u obtengo una instancia del usuario: $user = App\Models\User::find(1);
+
+- Asigno una imagen del usuario
+$user->image()->save(App\Models\Image::factory()->make());
+
+- Guardo en variable la imagen del usuario creada
+$image = $user->image;
+
+- Se veficia las imagenes que tiene asiginada
+$image->imageable;
+
+# RELACIONES DE UNO A MUCHOS
+Un producto puede tener multiples imagenes
+
+- Obteniendo un producto
+$product = App\Models\Product::find(2);
+
+- Asignando una imagen al producto
+$product->images()->save(App\Models\Image::factory()->make());
+
+- Busco la imagen insertada 
+$image = App\Models\Image::find(2);
+
+- Traemos el imageable
+$image->imageable;
+
+- Obteniendo las imagenes del producto
+$product->images;
+
+- Refrescando el producto para acceder a la colección
+$product = $product->fresh();
 
 
+# RELACIONES POLIMORFICAS MUCHOS A MUCHOS
 

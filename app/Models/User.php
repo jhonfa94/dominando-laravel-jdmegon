@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use App\Models\Payment;
+use App\Models\Image;
 use App\Models\Order;
+use App\Models\Payment;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -66,5 +67,17 @@ class User extends Authenticatable
     public function payments()
     {
         return $this->hasManyThrough(Payment::class, Order::class, 'customer_id');
+    }
+
+    /**
+     * Un usuario tiene una sola imagen
+     * la cual corresponde a la imagen del perfil 
+     * 
+     * morphOne: Relacion polimofica
+     * 
+     */
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
     }
 }

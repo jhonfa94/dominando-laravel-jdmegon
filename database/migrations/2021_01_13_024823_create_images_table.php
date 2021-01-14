@@ -17,6 +17,8 @@ class CreateImagesTable extends Migration
             $table->id();
             $table->string('path');
             $table->timestamps();
+            $table->morphs('imageable');
+            
         });
     }
 
