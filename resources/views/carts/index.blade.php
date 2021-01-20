@@ -1,24 +1,29 @@
 @extends('layouts.app')
 
+@section('title')
+    | Carts
+@endsection
+
+
 @section('content')
-    <h1>Welcome</h1>
-    @empty($products)
+    <h1>You cart</h1>
+    @if (!isset($cart) || $cart->products->isEmpty())
         <div class="alert alert-danger" role="alert">
-            No products yet!
+            Your cart is empty.
         </div>
     @else
         <div class="row">
-            @foreach ($products as $product)
+            @foreach ($cart->products as $product)
                 <div class="col-12 col-sm-6 col-md-4 col-lg-3">
                     @include('components.product-card')
                 </div>
-            @endforeach            
+            @endforeach
         </div>
 
         {{-- <div class="row justify-content-center">
             <div class="col-12 col-sm-8 col-md-4 col-lg-3">
-                {{ $products->links('pagination::bootstrap-4') }} 
+                {{ $products->links('pagination::bootstrap-4') }}
             </div>
         </div> --}}
-    @endempty
+    @endif
 @endsection

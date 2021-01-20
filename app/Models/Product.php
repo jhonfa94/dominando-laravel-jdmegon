@@ -40,4 +40,12 @@ class Product extends Model
     {
         return $this->morphMany(Image::class, 'imageable');
     }
+
+    /**
+     * Scope para reutilizar el código de la consulta
+     */
+    public function scopeAvailable($query)
+    {
+        $query->where('status', 'available');
+    }
 }

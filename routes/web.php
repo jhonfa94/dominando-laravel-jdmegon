@@ -23,6 +23,10 @@ Route::get('/', [App\Http\Controllers\MainController::class, 'index'])->name('ma
 # RUTA RECURSIVA => utilizar except y en array indicar que metodo no mostrar o si es uno en especifico only
 Route::resource('products', App\Http\Controllers\ProductController::class); # 
 
+Route::resource('products.cart', App\Http\Controllers\ProductCartController::class)->only(['store','destroy']);
+
+Route::resource('cart',  App\Http\Controllers\CartController::class)->only(['index']);
+
 # RUTAS NORMALES
 /* Route::get('products', [App\Http\Controllers\ProductController::class, 'index'])->name('products.index');
 Route::get('products/create',  [App\Http\Controllers\ProductController::class, 'create'])->name('products.create');
